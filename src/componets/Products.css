@@ -1,0 +1,17 @@
+.products{
+    
+}
+.products ul{
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    
+}
+.products li {
+    background-color: rgb(192, 217, 255);
+    border-radius: 10%;
+    color: black;
+}
+
+
