@@ -1,33 +1,34 @@
 import { useContext, useState } from 'react'
 import { Products} from './componets/Products'
-import {products} from './mocks/products.json'
-import {Header} from './componets/Header'
-import{ Footer} from './componets/Footer'
+import { products} from './mocks/products.json'
+import { Header} from './componets/Header'
+import { Footer} from './componets/Footer'
+import { useFilters} from './Hooks/useFilters'
+// import { FiltersContext } from './context/FiltersContext'
 
-import { FiltersContext } from './context/FiltersContext'
-function useFilters() {
+// function useFilters() {
 
-  // const [filters, setFilters ] = useState({
-  //   minPrice: 0,
-  //   category: 'all'
-  // })
+//   // const [filters, setFilters ] = useState({
+//   //   minPrice: 0,
+//   //   category: 'all'
+//   // })
   
-  const {filters, setFilters} = useContext(FiltersContext)
+//   const {filters, setFilters} = useContext(FiltersContext)
 
-  const filterProducts = (products) =>{
+//   const filterProducts = (products) =>{
 
-    return products.filter( product =>{
-      return (
-        product.price >= filters.minPrice && ( 
-          filters.category === 'all' || 
-          product.category === filters.category 
-        )
-      )
-    } )
-  }
-  return {filters, filterProducts, setFilters}
+//     return products.filter( product =>{
+//       return (
+//         product.price >= filters.minPrice && ( 
+//           filters.category === 'all' || 
+//           product.category === filters.category 
+//         )
+//       )
+//     } )
+//   }
+//   return {filters, filterProducts, setFilters}
 
-}
+// }
 
 function App() {
 
