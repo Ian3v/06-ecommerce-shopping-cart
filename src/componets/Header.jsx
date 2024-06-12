@@ -1,15 +1,17 @@
 
-import { useState } from 'react'
-import {Filters } from './Filters.jsx'
+// import { useState, useId } from 'react'
+import { Filters } from './Filters.jsx'
+// import { IS_DEVELOPMENT } from '../assets/config.js'
 
-export function Header({changeFilters}) {
-    const [minPrice, setMinPrice] = useState(0)
-    // console.log('%c7 >','color:;font-size:15px;',changeFilters);
+export function Header() {
     
     return(
         <header>
             <h1>React Shop</h1>
-            <Filters  onChange={changeFilters}/>
+            {/* { IS_DEVELOPMENT && <Filters />} */}
+            <Filters />
         </header>
     )
 }
+
+

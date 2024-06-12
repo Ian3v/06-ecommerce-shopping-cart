@@ -1,8 +1,21 @@
 import './Filters.css'
-import { useState,useId } from 'react'
+import { useState,useId, useContext } from 'react'
 
-export function Filters ({onChange}) {
+/* -------------------------------------------------------------------------- */
+// Aki Funciona traer "setFilters" desde Hooks/Filters por q aho ya tenemos filters, setFilters y estamos retornado eso
+// import { useFilters } from '../Hooks/useFilters'
+// Como tambien funciona traer el setFilters desde el origine osea el contexto
+import { FiltersContext } from '../context/FiltersContext'
+/* -------------------------------------------------------------------------- */
 
+export function Filters () {
+
+   /* -------------------------------------------------------------------------- */
+   // Podemos traernos el setFilters desde hooks/useFilters
+   // const { setFilters } = useFilters()
+   //NOs traemos el Estado actulizador del contexto
+   const { setFilters } = useContext(FiltersContext)
+   /* -------------------------------------------------------------------------- */
    
    const [minPrice, setMinPrice] = useState(0)
    const minPriceFilterId = useId()
@@ -11,7 +24,7 @@ export function Filters ({onChange}) {
    const handleChangeMinPrice = (e)=>{
       setMinPrice(e.target.value)
       
-      onChange( (prevState)=>
+      setFilters( (prevState)=>
         ( {
          ...prevState,
          minPrice: e.target.value
@@ -22,7 +35,7 @@ export function Filters ({onChange}) {
    const handleChangeCategory = (e)=>{
       setMinPrice(e.target.value)
       
-      onChange( (prevState)=>
+      setFilters( (prevState)=>
         ( {
          ...prevState,
          category: e.target.value
