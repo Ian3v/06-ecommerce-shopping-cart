@@ -4,6 +4,8 @@ import { products} from './mocks/products.json'
 import { Header} from './componets/Header'
 import { Footer} from './componets/Footer'
 import { useFilters} from './Hooks/useFilters'
+import { Cart } from './componets/Cart'
+import { CartProvider } from './context/CartContext'
 // import { FiltersContext } from './context/FiltersContext'
 
 // function useFilters() {
@@ -13,17 +15,18 @@ import { useFilters} from './Hooks/useFilters'
 function App() {
 
   // const [products] = useState(initialProducts)
-  const  {filters,filterProducts, setFilters} = useFilters()
+  const {filters,filterProducts, setFilters} = useFilters()
   const filteredProducts = filterProducts(products);
    
 
   return (
-    <>
+    <CartProvider>
       {/* <Header changeFilters={setFilters}/>   */}
       <Header />  
-      <Products products={filteredProducts}/>
+      <Cart />
+      <Products product={filteredProducts}/>
       <Footer filters={filters}/>
-    </>
+    </CartProvider>
   )
 }
 

@@ -1,16 +1,18 @@
 import './Products.css'
 // import { AddToCardIcon} from './icons'
 import {AddToCartIcon} from './Icons.jsx'
+import { useCart } from '../Hooks/useCart.js'
 
-export function Products( {products} ){
+export function Products( {product} ){
    
-   // console.log('%c9 >','color:red;font-size:15px;',products);
+   const {addToCart, cart} = useCart()
+   
    return(
       <main className='products'>
          <h2>Products.js</h2>
          <ul>
             {
-               products.map( (element,index)=>(
+               product.map( (element,index)=>(
                   <li key={element.id}>
                      <h4>{index}</h4>
                      <img 
@@ -22,7 +24,7 @@ export function Products( {products} ){
                         <strong>{element.title}</strong> - ${element.price}
                      </div>
                      <div>
-                        <button>
+                        <button onClick={()=>{ addToCart(product)}}>
                            <AddToCartIcon />
                         </button>
                      </div>

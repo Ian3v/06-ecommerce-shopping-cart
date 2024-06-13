@@ -14,7 +14,7 @@ export function Filters () {
    // Podemos traernos el setFilters desde hooks/useFilters
    // const { setFilters } = useFilters()
    //NOs traemos el Estado actulizador del contexto
-   const { setFilters } = useContext(FiltersContext)
+   const { filters, setFilters } = useContext(FiltersContext)
    /* -------------------------------------------------------------------------- */
    
    const [minPrice, setMinPrice] = useState(0)
@@ -22,8 +22,8 @@ export function Filters () {
    const categoryFilterId = useId()
 
    const handleChangeMinPrice = (e)=>{
-      setMinPrice(e.target.value)
-      
+      // setMinPrice(e.target.value)
+      // setFilters(e.target.value)
       setFilters( (prevState)=>
         ( {
          ...prevState,
@@ -33,8 +33,8 @@ export function Filters () {
    }
 
    const handleChangeCategory = (e)=>{
-      setMinPrice(e.target.value)
-      
+      // setMinPrice(e.target.value)
+         // setFilters(e.target.value)
       setFilters( (prevState)=>
         ( {
          ...prevState,
@@ -55,8 +55,9 @@ export function Filters () {
                min='0'
                max='1000'
                onChange={handleChangeMinPrice}
+               value={filters.minPrice}
             />
-            <span>${minPrice}</span>
+            <span>${filters.minPrice}</span>
          </div>
          <div>
             <label htmlFor={categoryFilterId}>Categorias</label>
