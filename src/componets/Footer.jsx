@@ -4,7 +4,7 @@ import { useFilters } from '../Hooks/useFilters'
 export function Footer(){
     const {filters } = useFilters()
     const { cart} = useCart()
-
+    // console.log('%c7 Footer cart >','color:#25E882;font-size:15px;',cart);
     return(
 
 

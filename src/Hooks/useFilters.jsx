@@ -4,9 +4,10 @@ import { FiltersContext } from '../context/FiltersContext'
 export function useFilters() {
 
     const {filters, setFilters} = useContext(FiltersContext)
+    // filters =   category: 'all', minPrice: 500
     
-    const filterProducts = (products) =>{
-  
+    const filterProducts = (products) =>{ //Esta func es compartida en App.js y para luego a Filtrarlo y pasar el filtrado a <Products />
+    
       return products.filter( product =>{
         return (
           product.price >= filters.minPrice && ( 
@@ -20,3 +21,4 @@ export function useFilters() {
     return {filters, filterProducts, setFilters}
   
   }
+  

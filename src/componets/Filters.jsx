@@ -44,7 +44,6 @@ export function Filters () {
    }
 
 
-
     return(
       <section className="filters">
          <div>
@@ -55,6 +54,7 @@ export function Filters () {
                min='0'
                max='1000'
                onChange={handleChangeMinPrice}
+               // value={filters.minPrice}
                value={filters.minPrice}
             />
             <span>${filters.minPrice}</span>

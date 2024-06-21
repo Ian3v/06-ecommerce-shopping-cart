@@ -11,24 +11,27 @@ import { CartProvider } from './context/CartContext'
 // function useFilters() {
   //return {filters, filterProducts, setFilters}
 // }
-
+1.23
 function App() {
 
   // const [products] = useState(initialProducts)
   const {filters,filterProducts, setFilters} = useFilters()
+  
   const filteredProducts = filterProducts(products);
    
 
   return (
-    <CartProvider>
+    //CartProvider es de CartContext
+  
+    <CartProvider> 
       {/* <Header changeFilters={setFilters}/>   */}
       <Header />  
       <Cart />
       <Products product={filteredProducts}/>
       <Footer filters={filters}/>
     </CartProvider>
+    
   )
 }
 
 export default App
-  
