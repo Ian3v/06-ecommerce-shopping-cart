@@ -11,7 +11,7 @@ import { CartProvider } from './context/CartContext'
 // function useFilters() {
   //return {filters, filterProducts, setFilters}
 // }
-1.23
+
 function App() {
 
   // const [products] = useState(initialProducts)

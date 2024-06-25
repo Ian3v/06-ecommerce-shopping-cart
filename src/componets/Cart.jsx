@@ -2,10 +2,39 @@
 import './Cart.css'
 import { useId} from 'react'
 import { CartIcon, ClearCartIcon, RemoveFromCartIcon } from "./Icons";
+import { useCart } from '../Hooks/useCart'
+import { Products } from './Products';
+
+function CartItem ( {thumbnail, price, title, quantity, addToCart, lessQuantity,removeItemCart, element}){
+    return(
+        <li >
+            <img 
+                src='https://picsum.photos/300/300'
+                // alt='iphone'
+            />
+            <div>
+                {/* <strong>{element.id} </strong> */}
+                <strong>{title}</strong> - ${price}
+            </div> 
+
+            <footer>
+                <button onClick={lessQuantity}>-</button>
+                <small>
+                     Qty: {quantity}
+                </small>
+                <button onClick={addToCart}>+</button>
+
+                {/* <button onClick={addToCart(element)}>+</button> */}
+            </footer>
+            <button onClick={removeItemCart}>X</button>
+        </li>
+    )
+}
 
 export function Cart (){
     const cartCheckboxId = useId()
     
+    const { cart,addToCart,lessQuantity,removeItemCart,clearCart} = useCart()
     return(
         <>
             <label className="cart-button" htmlFor={cartCheckboxId}>
@@ -15,25 +44,28 @@ export function Cart (){
 
             <aside className='cart'>
                 <ul>
-                    <li>
-                        <img 
-                            src='https://picsum.photos/300/300'
-                            alt='iphone'
-                        />
-                        <div>
-                            <strong>iPhone</strong> - $1429
-                        </div>
+                    {
+                        cart.map((element, index, allArray)=>{
+                            
+                            {/* console.log("23 element >",element); */}
+                            return (
+                                <CartItem 
+                                    key={element.id} 
+                                    price={element.price}
+                                    title={element.title}
+                                    quantity={element.quantity}
 
-                        <footer>
-                            <small>
-                                Qty: 1
-                            </small>
-                            <button>+</button>
-                        </footer>
-
-                    </li>
+                                    lessQuantity={()=> lessQuantity(element)}
+                                    addToCart={()=>  addToCart(element)}
+                                    removeItemCart={()=> removeItemCart(element)}
+                                    {...element}
+                                />
+         
+                            )
+                        })
+                    }
                 </ul>
-                <button>
+                <button onClick={()=>{clearCart()}}>
                     <ClearCartIcon/>
                 </button>
             </aside>

@@ -11,5 +11,5 @@ export const useCart = ()=>{
     }
 
 
-    return context
+    return context // lo usa Porducts.jsx / context contiene { addToCart, cart }
 } 
