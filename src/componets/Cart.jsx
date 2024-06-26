@@ -5,7 +5,7 @@ import { CartIcon, ClearCartIcon, RemoveFromCartIcon } from "./Icons";
 import { useCart } from '../Hooks/useCart'
 import { Products } from './Products';
 
-function CartItem ( {thumbnail, price, title, quantity, addToCart, lessQuantity,removeItemCart, element}){
+function CartItem ( {thumbnail, price, title, quantity, addToCart, subtractQuantity,removeItemCart, element}){
     return(
         <li >
             <img 
@@ -18,7 +18,7 @@ function CartItem ( {thumbnail, price, title, quantity, addToCart, lessQuantity,
             </div> 
 
             <footer>
-                <button onClick={lessQuantity}>-</button>
+                <button onClick={subtractQuantity}>-</button>
                 <small>
                      Qty: {quantity}
                 </small>
@@ -34,7 +34,7 @@ function CartItem ( {thumbnail, price, title, quantity, addToCart, lessQuantity,
 export function Cart (){
     const cartCheckboxId = useId()
     
-    const { cart,addToCart,lessQuantity,removeItemCart,clearCart} = useCart()
+    const { cart,addToCart,removeItemCart,clearCart,subtractQuantity} = useCart()
     return(
         <>
             <label className="cart-button" htmlFor={cartCheckboxId}>
@@ -55,7 +55,7 @@ export function Cart (){
                                     title={element.title}
                                     quantity={element.quantity}
 
-                                    lessQuantity={()=> lessQuantity(element)}
+                                    subtractQuantity={()=> subtractQuantity(element)}
                                     addToCart={()=>  addToCart(element)}
                                     removeItemCart={()=> removeItemCart(element)}
                                     {...element}
