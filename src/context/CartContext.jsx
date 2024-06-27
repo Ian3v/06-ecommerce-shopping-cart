@@ -1,4 +1,5 @@
 import { createContext, useReducer, useState} from 'react'
+import { cartReducer,cartInitialState } from '../reducers/CartReducers'
 
 //! --------------------------  1 Crear contexto -------------------------- */
 export const CartContext = createContext()
@@ -6,120 +7,70 @@ export const CartContext = createContext()
  //!------------------------------- USEREDUCER ------------------------------- */
 //! USEREDUCER para minimizar el uso de tantos setCart / reducer es reducir
 // 1  Creamos el estado inicial
-const initialState = []
-const reducer = (state, action)=>{
-    const {type: actionType, payload: actionPayload} = action
+function useCartReducer(){
+    const [state, dispatch] = useReducer(cartReducer, cartInitialState)
 
-    switch(actionType){
-        case 'ADD_TO_CART' : {
-            const { id } = actionPayload
-            const productInCartIndex = state.findIndex(item => item.id === id)
+     // const [cart, setCart] = useState([])
 
-            if(productInCartIndex >= 0){
-                const newState = structuredClone(state) //Copia a fondo de cart
-                newState[productInCartIndex].quantity += 1 //le sumamos + 1 
-                
-                // return setCart(newCart)// retornamos el esado actualizado
-                return newState// en Reducer ya no vamos setearlo si no devolver la variable
-            }else{
-                // Producto no esta en el carrito
-                return [
-                ...state, 
-                {
-                    ...actionPayload, // product
-                    quantity: 1
-                }
-                ]
-            
-             }   
-        }
-        case 'REMOVE_FROM_CART':{
-            const { id } = actionPayload
-            return state.filter(item => item.id !== id)
-        }
-        case 'CLEAR_CART':{
-            return initialState
-        }
-        case 'SUBTRACT_QUANTITY':{
-            const {id} = actionPayload
-            const productInCartIndex = state.findIndex((item)=> {
-                return item.id === id
-            })
-            if(productInCartIndex >= 0){
-                const newState = structuredClone(state) //Copia a fondo de cart
-                if(newState[productInCartIndex].quantity > 1){
-    
-                    newState[productInCartIndex].quantity -= 1 //le sumamos + 1 
-                }
-                return newState// retornamos el esado actualizado
-            }
-            
-        }
+     //* ----------------------------- Restar Cantidad ---------------------------- */
+     // const lessQuantity = (product)=>{
+     //     const productInCartIndex = cart.findIndex((item)=> {
+     //         return item.id === product.id
+     //     })
+     //     if(productInCartIndex >= 0){
+     //         const newCart = structuredClone(cart) //Copia a fondo de cart
+     //         if(newCart[productInCartIndex].quantity > 1){
+ 
+     //             newCart[productInCartIndex].quantity -= 1 //le sumamos + 1 
+     //         }
+     //         return setCart(newCart)// retornamos el esado actualizado
+     //     }
+     // }
+     const subtractQuantity = (product)=>{
+         dispatch(
+             {
+                 type: 'SUBTRACT_QUANTITY',
+                 payload: product
+             }
+         )
+     }
+     //* ------------------------------ Func Agregar ------------------------------ */
+     const addToCart = product => {
+ 
+         dispatch(
+             {
+                 type: 'ADD_TO_CART',
+                 payload: product
+             }
+         )
+     }
+     //* ------------------------------- RemoverItem ------------------------------ */
+     const removeItemCart = (product) => {
+         dispatch(
+             {
+                 type: 'REMOVE_FROM_CART',
+                 payload: product
+             }
+         )
+     }
+     //* ------------------------------ Limpiar Cart ------------------------------ */
+     const clearCart = () =>{
+ 
+         dispatch( 
+             {
+                 type: 'CLEAR_CART',
+             }
+         )
+     }
 
-    return state
-    }
+     return { state, addToCart, removeItemCart, clearCart,subtractQuantity}
 }
+
+
 //! --------------------------  2 crear provider -------------------------- */
 export function CartProvider ({children}){
     /* --------------------------------- Estado --------------------------------- */
-    // const [cart, setCart] = useState([])
-    const [state, dispatch] = useReducer(reducer, initialState)
-
-    //* ----------------------------- Restar Cantidad ---------------------------- */
-    // const lessQuantity = (product)=>{
-    //     const productInCartIndex = cart.findIndex((item)=> {
-    //         return item.id === product.id
-    //     })
-    //     if(productInCartIndex >= 0){
-    //         const newCart = structuredClone(cart) //Copia a fondo de cart
-    //         if(newCart[productInCartIndex].quantity > 1){
-
-    //             newCart[productInCartIndex].quantity -= 1 //le sumamos + 1 
-    //         }
-    //         return setCart(newCart)// retornamos el esado actualizado
-    //     }
-    // }
-
-    const subtractQuantity = (product)=>{
-        dispatch(
-            {
-                type: 'SUBTRACT_QUANTITY',
-                payload: product
-            }
-        )
-    }
-
-    //* ------------------------------ Func Agregar ------------------------------ */
-    const addToCart = product => {
-
-        dispatch(
-            {
-                type: 'ADD_TO_CART',
-                payload: product
-            }
-        )
-    }
-
-    //* ------------------------------- RemoverItem ------------------------------ */
-    const removeItemCart = (product) => {
-        dispatch(
-            {
-                type: 'REMOVE_FROM_CART',
-                payload: product
-            }
-        )
-    }
-
-    //* ------------------------------ Limpiar Cart ------------------------------ */
-    const clearCart = () =>{
-
-        dispatch( 
-            {
-                type: 'CLEAR_CART',
-            }
-        )
-    }
-
+    const { state, addToCart, removeItemCart, clearCart, subtractQuantity} = useCartReducer()
     return (
         <CartContext.Provider value= {{
             cart: state,
