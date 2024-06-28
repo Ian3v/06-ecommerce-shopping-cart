@@ -19,8 +19,8 @@ Currently, two official plugins are available:
 
 2. Shooping Cart
 
-- Haz q se peudan agrgar los productos a un carrito
-- Haz q se puedan eliminar os productos del carrito
-- Haz q se puedan modificar la cantidad de productos del carrito
--Sincroniza los cambios del carrito con la lista de productos
-- Guardar en un localStorege el carrito para q se recupere al recargar la pagina
+✅ Haz q se peudan agrgar los productos a un carrito
+✅ Haz q se puedan eliminar os productos del carrito
+✅ Haz q se puedan modificar la cantidad de productos del carrito
+✅ Sincroniza los cambios del carrito con la lista de productos
+✅ Guardar en un localStorege el carrito para q se recupere al recargar la pagina
